@@ -23,7 +23,7 @@ if __name__ == "__main__":
     setup(package_dir      = {'':PACKAGE_SOURCE_DIR},
           packages         = find_packages(PACKAGE_SOURCE_DIR),
           #non-code files
-          #package_data     =   {'': ['*.so']},
+          package_data     =   {'': ['*.jpg']},
           **PACKAGE_METADATA
          )
      
