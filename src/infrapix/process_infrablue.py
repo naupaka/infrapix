@@ -23,12 +23,14 @@ from core import fig_to_img
 
 # function for generating NIR imagery from NGB input files
 
-def nir(img, 
+def nir(img,
         cmap = plt.cm.gist_gray,
        ):
     """ Display just the NIR information with a particular 'colormap' default
         is grayscale (matplotlib.cm.gist_gray)
     """
+    if isinstance(img,str): #treat as a filename
+        img = Image.open(img)
     imgR, imgG, imgB = img.split() #get channels
     arrR = numpy.asarray(imgR).astype('float64')
     #the near infrared data is contained in the red channel of the input image
@@ -57,14 +59,17 @@ def ndvi(img,
          vmin = None,
          vmax = None,
          show_colorbar  = True,
-         colorbar_labelsize = 8,
+         colorbar_labelsize = 6,
          show_histogram = False,
          dpi = 600.0 #needs to be floating point
         ):
+    if isinstance(img,str): #treat as a filename
+        img = Image.open(img)
+        
     imgR, imgB, imgG = img.split() #get channels
     #compute the NDVI
     arrR = numpy.asarray(imgR).astype('float64')
-    #arrG = numpy.asarray(imgG).astype('float64') #this channel is ignored
+    arrG = numpy.asarray(imgG).astype('float64') #this channel is ignored
     arrB = numpy.asarray(imgB).astype('float64')
     num   = (arrR - arrB)
     denom = (arrR + arrB)
@@ -113,21 +118,32 @@ def ndvi(img,
     
     #optional debugging data
     if show_histogram:
+        normed = False
         #plot the Red histogram
         x = arrR.ravel()
-        a = plt.axes([.05,.7,.18,.18], axisbg='y')
+        a = plt.axes([.05,.80,.18,.18], axisbg='y')
         bins=numpy.arange(0,255,8)
-        n, bins, patches = plt.hist(x, bins, normed = True, linewidth=.2)
+        n, bins, patches = plt.hist(x, bins, normed = normed, linewidth=.2)
         plt.setp(patches, 'facecolor', 'r', 'alpha', 0.75)
+        plt.setp(a, xticks=[0,120,255], yticks=[])
+        plt.setp(a, xticks=[], yticks=[])
+        plt.xticks(fontsize=2)
+
+        #plot the Green histogram
+        x = arrG.ravel()
+        a = plt.axes([.05,.55,.18,.18], axisbg='y')
+        bins=numpy.arange(0,255,8)
+        n, bins, patches = plt.hist(x, bins, normed = normed, linewidth=.2)
+        plt.setp(patches, 'facecolor', 'g', 'alpha', 0.75)
         plt.setp(a, xticks=[0,120,255], yticks=[])
         plt.setp(a, xticks=[], yticks=[])
         plt.xticks(fontsize=2)
 
         #plot the Blue histogram
         x = arrB.ravel()
-        a = plt.axes([.05,.4,.18,.18], axisbg='y')
+        a = plt.axes([.05,.3,.18,.18], axisbg='y')
         bins = numpy.arange(0,255,8)
-        n, bins, patches = plt.hist(x, bins, normed = True, linewidth=.2)
+        n, bins, patches = plt.hist(x, bins, normed = normed, linewidth=.2)
         plt.setp(patches, 'facecolor', 'b', 'alpha', 0.75)
         plt.setp(a, xticks=[0,120,255], yticks=[])
         plt.setp(a ,xticks=[], yticks=[])
@@ -135,9 +151,9 @@ def ndvi(img,
 
         #plot the NDVI histogram
         x = arr_ndvi.ravel()
-        a = plt.axes([.05,.1,.18,.18], axisbg='y')
+        a = plt.axes([.05,.05,.18,.18], axisbg='y')
         bins=numpy.arange(-1,1,.01)
-        n, bins, patches = plt.hist(x, bins, normed = True, linewidth=.2)
+        n, bins, patches = plt.hist(x, bins, normed = normed, linewidth=.2)
         plt.setp(patches, 'facecolor', 'w', 'alpha', 0.75)
         plt.setp(a, xticks=[-1,0,1], yticks=[])
         plt.setp(a, xticks=[], yticks=[])
