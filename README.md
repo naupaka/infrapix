@@ -1,7 +1,15 @@
 Infrapix
 ============
 
-Python library and command line tools for processing publiclab's Infragram images and movies.
+Python library and command line tools for processing 
+[publiclab.org's Infragram](http://www.kickstarter.com/projects/publiclab/infragram-the-infrared-photography-project)
+images and movies.  Here are two sample movies remixed from Chris Fastie's 
+["Bee Pond Fuschia" Infrablue movie](http://publiclab.org/notes/cfastie/06-01-2013/bee-movie):
+
+1. NDVI with fixed value range (-1.0 to 1.0) and overlayed R,G,B,NDVI histograms: http://youtu.be/39gmZC9B-jg
+
+2. NDVI with dynamic range (vmin to  vmax in each frame ) and overlayed R,G,B,NDVI histograms:
+http://youtu.be/3NEXxGdrEFc
 
 
 Installation
