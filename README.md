@@ -43,6 +43,9 @@ For a sample infrablue image as input, grab "river.jpg" [here](ttp://i.publiclab
 
 ![river.jpg](http://i.publiclab.org/system/images/photos/000/000/476/medium/river.jpg)
 
+Running the above command should result an image similar to the following:
+
+![river_NDVI.jpg](http://i.publiclab.org/system/images/photos/000/000/477/medium/river_NDVI.jpg)
 
 ### Converting an infrablue movie to NDVI
 
