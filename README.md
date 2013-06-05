@@ -39,7 +39,7 @@ Debian Linux system (though Windows and OS X should also be possible with slight
 
 ```infrapix_single -i river.jpg --show_histogram -o ndvi_river.jpg```
 
-For a sample infrablue image as input, try "river.jpg":
+For a sample infrablue image as input, grab "river.jpg" [here](ttp://i.publiclab.org/system/images/photos/000/000/476/medium/river.jpg), or below (get it via 'right-click save-as'):
 
 ![river.jpg](http://i.publiclab.org/system/images/photos/000/000/476/medium/river.jpg)
 
