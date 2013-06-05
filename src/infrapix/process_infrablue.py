@@ -202,6 +202,7 @@ def ndvi(img,
 ###### testing the code #######
 if __name__ == "__main__":
     from infrapix.data import test_img0
+	
     ndvi(test_img0,'test_ndvi.png',
          show_histogram = True,
         )
