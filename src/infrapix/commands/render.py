@@ -71,7 +71,10 @@ class Application:
             if self.verbose:
                 print "Extracting frames..."
                 print "\tRunning command: %s" % cmd
-            run_cmd(cmd)
+            try:
+                run_cmd(cmd)
+            except KeyboardInterrupt:
+                pass
         # NDVI conversion
         if self.verbose:
             print "Converting to all frames NDVI..."
@@ -101,7 +104,10 @@ class Application:
         if self.verbose:
             print "Rendering movie..."
             print "\tRunning command: %s" % cmd
-        run_cmd(cmd)
+        try:
+            run_cmd(cmd)
+        except KeyboardInterrupt:
+            pass
         
     def render_opencv(self):
         import warnings
@@ -150,12 +156,17 @@ def main():
                         default = None,
                        )
     parser.add_argument("--vmin",
-                        help    = "minimum NDVI value",
+                        help    = "minimum NDVI value OR dynamic lower quantile fraction",
                         default = None,
                        )
     parser.add_argument("--vmax",
-                        help    = "maximum NDVI value",
+                        help    = "maximum NDVI value OR dynamic upper quantile fraction",
                         default = None,
+                       )
+    parser.add_argument("-d", "--dynamic_range",
+                        help    = "interpret vmin and vmax as fractional quantile boundaries for mapped values",
+                        action  = "store_true",
+                        default = False,
                        )
     parser.add_argument("--hide_colorbar",
                         help    = "do not overlay colorbar on video",
@@ -186,7 +197,7 @@ def main():
     #check input file argument
     input_file = args.input_file
     if input_file is None:
-        if os.path.isdir(args.temp_dir):
+        if os.path.isdir(os.path.abspath(args.temp_dir)):
             print "Using input from temp_dir '%s'" % args.temp_dir
         else:
             print "No input was specified, use the '-i FILENAME' option. Exiting."
@@ -243,6 +254,7 @@ def main():
         
     app.set_ndvi_args(vmin = vmin,
                       vmax = vmax,
+                      dynamic_range = args.dynamic_range,
                       show_colorbar  = not args.hide_colorbar,
                       show_histogram = args.show_histogram,
                       )

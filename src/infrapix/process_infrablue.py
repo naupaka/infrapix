@@ -58,6 +58,7 @@ def ndvi(img,
          imageOutPath,
          vmin = None,
          vmax = None,
+         dynamic_range = True,
          show_colorbar  = True,
          colorbar_labelsize = 6,
          show_histogram = False,
@@ -78,7 +79,34 @@ def ndvi(img,
     #FIXME something is horribly wrong?
     if arr_ndvi.max() < 0.0:
         return
-
+    
+    #determine the range of NDVI values to colormap
+    if dynamic_range:
+        #the values of vmin and vmax are now interpreted as the quantile fractions
+        if vmin is None:
+            vmin = 0.0
+        if vmax is None:
+            vmax = 1.0
+        h, bins = numpy.histogram(arr_ndvi)
+        q = h.cumsum().astype("float64")
+        q /= q[-1]
+        #compute the values for the dynamic quantile boundaries
+        try:
+            vmin = bins[numpy.nonzero(q >= vmin)[0][0]]
+        except IndexError: #thrown when no match is found
+            vmin = -1.0    #force to minimum NDVI value
+        try:
+            vmax = bins[numpy.nonzero(q >= vmax)[0][0]]
+        except IndexError: #thrown when no match is found
+            vmax =  1.0    #force to maximum NDVI value
+        
+    else:
+        #the values of vmin and vmax are now interpreted as NDVI values
+        if vmin is None:
+            vmin = -1.0
+        if vmax is None:
+            vmax = 1.0
+            
     #create the matplotlib figure
     img_w,img_h=img.size
 
@@ -152,7 +180,7 @@ def ndvi(img,
         #plot the NDVI histogram
         x = arr_ndvi.ravel()
         a = plt.axes([.05,.05,.18,.18], axisbg='y')
-        bins=numpy.arange(-1,1,.01)
+        bins = numpy.arange(-1,1,.01)
         n, bins, patches = plt.hist(x, bins, normed = normed, linewidth=.2)
         plt.setp(patches, 'facecolor', 'w', 'alpha', 0.75)
         plt.setp(a, xticks=[-1,0,1], yticks=[])
