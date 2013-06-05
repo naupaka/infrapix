@@ -33,11 +33,20 @@ Debian Linux system (though Windows and OS X should also be possible with slight
     sudo python setup.py install
 ```
 
-4.  Go to a directory with an infrablue movie and run, for example to get dynamic range:
+### Converting an infrablue image to NDVI
+
+- Go to a directory with an infrablue movie and run:
+
+```infrapix_single -i river.jpg --show_histogram -o ndvi_river.jpg
+```
+
+### Converting an infrablue movie to NDVI
+
+- Go to a directory with an infrablue movie and run, for example to get dynamic range:
 ```infrapix_render -i BeePondFuschia.mp4 --show_histogram -o BeePondFuschia_NDVI_hist_dynamic-range.mp4```
     
    to get fixed range:
 ```infrapix_render -i BeePondFuschia.mp4 --vmin -1.0 --vmax 1.0 --show_histogram -o BeePondFuschia_NDVI_hist_fixed-range.mp4```
 
-5.  Wait a really long time... enjoy.  Hint, run
+- Wait a really long time... enjoy.  Hint, run
 ```infrapix_render -h``` for help.
