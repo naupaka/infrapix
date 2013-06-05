@@ -1,7 +1,0 @@
-[console_scripts]
-infrapix_render = infrapix.commands.render:main
-infrapix_single = infrapix.commands.single:main
-
-[gui_scripts]
-
-
