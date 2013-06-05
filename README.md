@@ -35,9 +35,14 @@ Debian Linux system (though Windows and OS X should also be possible with slight
 
 ### Converting an infrablue image to NDVI
 
-- Go to a directory with an infrablue movie and run:
+- Go to a directory with an infrablue movie and run, e.g.:
 
 ```infrapix_single -i river.jpg --show_histogram -o ndvi_river.jpg```
+
+For a sample infrablue image as input, try "river.jpg":
+
+![river.jpg](http://i.publiclab.org/system/images/photos/000/000/476/medium/river.jpg)
+
 
 ### Converting an infrablue movie to NDVI
 
