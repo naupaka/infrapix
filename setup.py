@@ -25,7 +25,7 @@ INSTALL_REQUIRES = [
 #scripts and plugins
 ENTRY_POINTS = { 'gui_scripts': [],
                  'console_scripts': [
-                                      'infrapix_render = infrapix.commands.render:main',
+                                      'infrapix_render = infrapix.commands.render:main','infrapix_single = infrapix.commands.single:main',
                                     ],
                 } 
  
