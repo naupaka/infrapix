@@ -1,4 +1,5 @@
-import numpy, Image
+import numpy
+from PIL import Image
 
 def fig_to_data(fig):
     """
